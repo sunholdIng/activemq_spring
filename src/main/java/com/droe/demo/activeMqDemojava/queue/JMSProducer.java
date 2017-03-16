@@ -14,7 +14,9 @@ public class JMSProducer {
     //默认连接密码
     private static final String PASSWORD = ActiveMQConnection.DEFAULT_PASSWORD;
     //默认连接地址
-    private static final String BROKEURL = ActiveMQConnection.DEFAULT_BROKER_URL;
+    //private static final String BROKEURL = ActiveMQConnection.DEFAULT_BROKER_URL;
+    private static final String BROKEURL = "tcp://172.16.10.17:61616";
+
     //发送的消息数量
     private static final int SENDNUM = 10;
 
@@ -40,7 +42,7 @@ public class JMSProducer {
             //创建会话
             session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
             //创建一个名称为HelloWorld的消息队列
-            destination = session.createQueue("messageNew");
+            destination = session.createQueue("messageNew,test");
             //destination = session.createTopic("hello world!");
             //创建消息生成者
             messageProducer = session.createProducer(destination);
