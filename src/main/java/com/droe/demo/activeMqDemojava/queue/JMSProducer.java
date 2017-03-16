@@ -1,4 +1,4 @@
-package com.droe.demo.activeMqDemojava;
+package com.droe.demo.activeMqDemojava.queue;
 
 import org.apache.activemq.ActiveMQConnection;
 import org.apache.activemq.ActiveMQConnectionFactory;
@@ -38,15 +38,14 @@ public class JMSProducer {
             //启动连接
             connection.start();
             //创建会话
-            session = connection.createSession(true, Session.AUTO_ACKNOWLEDGE);
+            session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
             //创建一个名称为HelloWorld的消息队列
-            destination = session.createQueue("message");
+            destination = session.createQueue("messageNew");
             //destination = session.createTopic("hello world!");
             //创建消息生成者
             messageProducer = session.createProducer(destination);
             //发送消息
             sendMessage(session, messageProducer);
-
             session.commit();
         } catch (Exception e) {
             e.printStackTrace();

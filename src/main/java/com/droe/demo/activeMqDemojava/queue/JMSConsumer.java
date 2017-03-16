@@ -1,4 +1,4 @@
-package com.droe.demo.activeMqDemojava;
+package com.droe.demo.activeMqDemojava.queue;
 
 import org.apache.activemq.ActiveMQConnection;
 import org.apache.activemq.ActiveMQConnectionFactory;
@@ -24,14 +24,17 @@ public class JMSConsumer {
             connectionFactory = new ActiveMQConnectionFactory(USERNAME,PASSWORD,BROKEURL);
             connection = connectionFactory.createConnection();
             connection.start();
+            //ture表示开启事务，需要进行提交什么操作。
             session = connection.createSession(true,Session.AUTO_ACKNOWLEDGE);
-            destination = session.createQueue("message");
+            destination = session.createQueue("messageNew");
             messageConsumer = session.createConsumer(destination);
 
             while (true){
                 TextMessage textMessage = (TextMessage) messageConsumer.receive(100);
                 if(textMessage != null){
                     System.out.println("收到的消息:" + textMessage.getText());
+                    //session 为时：CLIENT_ACKNOWLEDGE ，需要调用下面方法删除消息
+                   // textMessage.acknowledge();
                 }else {
                     break;
                 }
