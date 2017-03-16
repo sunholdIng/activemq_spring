@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:amq="http://activemq.apache.org/schema/core"
+       xsi:schemaLocation="
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://activemq.apache.org/schema/core  http://activemq.apache.org/schema/core/activemq-core.xsd">
+
+    <!-- 配置连接工厂 -->
+    <amq:connectionFactory id="activeConnectionFactory" brokerURL="tcp://127.0.0.1:61616" userName="admin" password="admin" />
+    <!--<bean id="activeConnectionFactory" class="org.apache.activemq.ActiveMQConnectionFactory">
+        <property name="brokerURL" value=""/>
+        <property name="userName" value=""/>
+        <property name="password" value="admin"/>
+    </bean>-->
+
+    <bean id="connectionFactory" class="org.springframework.jms.connection.CachingConnectionFactory">
+        <constructor-arg ref="activeConnectionFactory" />
+        <!--100个链接，据说并发高了 效率会有影响。-->
+        <property name="sessionCacheSize" value="100" />
+    </bean>
+
+    <!-- 配置目的地 -->
+    <bean id="queueDestination" class="org.apache.activemq.command.ActiveMQQueue">
+        <constructor-arg index="0" value="FirstQueue" />
+    </bean>
+
+    <!-- 配置JmsTemplate,spring发送消息配置 -->
+    <bean id="JmsTemplate" class="org.springframework.jms.core.JmsTemplate">
+        <property name="connectionFactory" ref="connectionFactory" />
+        <property name="defaultDestination" ref="queueDestination" />
+        <property name="receiveTimeout" value="10000" />
+        <!-- true是topic，false是queue，默认是false，此处显示写出false -->
+        <property name="pubSubDomain" value="false" />
+    </bean>
+</beans>
