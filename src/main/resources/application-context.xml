@@ -18,6 +18,8 @@
     <mvc:annotation-driven/>
 
     <!--导入其需要加载配置文件-->
-    <import resource="activeMq-core.xml"/>
-
+    <!--mq发布者配置-->
+    <import resource="activeMqPro-core.xml"/>
+    <!--mq消费者配置-->
+    <!--<import resource="activeMqCon-core.xml"/>-->
 </beans>
