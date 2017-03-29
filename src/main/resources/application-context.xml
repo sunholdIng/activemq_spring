@@ -11,7 +11,7 @@
        default-lazy-init="true">
 
     <!--开启注解扫描包-->
-    <context:component-scan base-package="com.droe.demo.activeMqDemojava"/>
+    <context:component-scan base-package="com.droe.demo.activeMqDemojava.activemq"/>
     <aop:aspectj-autoproxy expose-proxy="true"/>
 
     <!--注解驱动-->

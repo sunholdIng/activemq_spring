@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
+//@RequestMapping(value = "/welcome")
 public class WelcomeController {
 
     @RequestMapping(value="/welcome",method=RequestMethod.GET)
@@ -13,6 +14,7 @@ public class WelcomeController {
         System.out.println("------------welcome");
         ModelAndView mv = new ModelAndView();
         mv.setViewName("welcome");
+
         return mv;
     }
 

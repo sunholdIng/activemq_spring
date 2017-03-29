@@ -14,7 +14,7 @@ import javax.jms.TextMessage;
 @Service(value = "consumerService")
 public class ConsumerService {
 
-    @Resource(name="jmsTemplate")
+    @Resource(name="JmsQueueTemplate")
     private JmsTemplate jmsTemplate;
 
     public TextMessage receive(Destination destination){
